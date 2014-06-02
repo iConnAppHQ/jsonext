@@ -12,9 +12,9 @@ def read(fname):
 
 setup(
     name='jsonext',
-    version='0.4dev',
+    version='0.5',
     description='Well-structured helpers to help serializing commonly '
-                'encountered structures to JSON (like datetime, to_dict(), '
+                'encountered structures to JSON (like datetime, asdict(), '
                 ' etc.',
     long_description=read('README.rst'),
     author='Marc Brinkmann',
