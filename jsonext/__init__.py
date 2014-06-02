@@ -10,12 +10,13 @@ All these are ready to use by using :data:`~jsonext.dumps`.
 import functools
 import json
 
-from .mixins import JSONDateTimeMixin, JSONIterableMixin, JSONToDictMixin, \
-    JSONStringifyMixin
+from .mixins import JSONDateTimeMixin, JSONIterableMixin, JSONAsDictMixin, \
+    JSONStringifyMixin, JSONPhoneNumberMixin, JSONChoiceMixin
 
 
-class JSONEncoder(JSONDateTimeMixin, JSONIterableMixin, JSONToDictMixin,
-                  JSONStringifyMixin, json.JSONEncoder):
+class JSONEncoder(JSONDateTimeMixin, JSONIterableMixin, JSONAsDictMixin,
+                  JSONPhoneNumberMixin, JSONChoiceMixin, JSONStringifyMixin,
+                  json.JSONEncoder):
     pass
 
 

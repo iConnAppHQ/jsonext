@@ -1,6 +1,8 @@
 import datetime
 import times
 
+from sqlalchemy_utils import PhoneNumber, PhoneNumberType, Choice, ChoiceType
+
 
 class JSONDateTimeMixin(object):
     """A mixin for JSONEncoders, encoding :class:`datetime.datetime` and
@@ -53,8 +55,8 @@ class JSONIterableMixin(object):
         return super(JSONIterableMixin, self).default(o)
 
 
-class JSONToDictMixin(object):
-    """A mixin for JSONEncoders, encoding any object with a to_dict() method
+class JSONAsDictMixin(object):
+    """A mixin for JSONEncoders, encoding any object with a asdict() method
     by calling that method and encoding the return value.
 
     >>> import jsonext
@@ -62,7 +64,7 @@ class JSONToDictMixin(object):
     ...   def __init__(self, a, b):
     ...     self.a = a
     ...     self.b = b
-    ...   def to_dict(self):
+    ...   def asdict(self):
     ...     return {'A': self.a, 'B': self.b}
     ...
     >>> items = [Foo(1,2), Foo(3,4)]
@@ -70,9 +72,9 @@ class JSONToDictMixin(object):
     '[{"A": 1, "B": 2}, {"A": 3, "B": 4}]'
     """
     def default(self, o):
-        if hasattr(o, 'to_dict'):
-            return o.to_dict()
-        return super(JSONToDictMixin, self).default(o)
+        if hasattr(o, 'asdict') and callable(getattr(o, 'asdict')):
+            return o.asdict()
+        return super(JSONAsDictMixin, self).default(o)
 
 
 class JSONStringifyMixin(object):
@@ -93,3 +95,37 @@ class JSONStringifyMixin(object):
         if hasattr(o, '__str__'):
             return str(o)
         return super(JSONStringifyMixin, self).default(o)
+
+
+class JSONPhoneNumberMixin(object):
+    """A mixin for JSONEncoders, encoding :class:`sqlalchemy_utils.PhoneNumber` and
+    :class:`sqlalchemy_utils.PhoneNumberType` objects by converting them to strings.
+
+
+    >>> import jsonext
+    >>> from sqlalchemy_utils import PhoneNumber, PhoneNumberType
+    >>> p = PhoneNumber('+79265798585', '7')
+    >>> jsonext.dumps(p)
+    '"+79265798585"'
+    """
+    def default(self, o):
+        if isinstance(o, (PhoneNumber, PhoneNumberType)):
+            return o.e164
+        return super(JSONPhoneNumberMixin, self).default(o)
+
+
+class JSONChoiceMixin(object):
+    """A mixin for JSONEncoders, encoding :class:`sqlalchemy_utils.Choice` and
+    :class:`sqlalchemy_utils.ChoiceType` objects by converting them to strings.
+
+
+    >>> import jsonext
+    >>> from sqlalchemy_utils import Choice, ChoiceType
+    >>> p = Choice(code='123', value='567')
+    >>> jsonext.dumps(p)
+    '"123"'
+    """
+    def default(self, o):
+        if isinstance(o, (Choice, ChoiceType)):
+            return o.code
+        return super(JSONChoiceMixin, self).default(o)
