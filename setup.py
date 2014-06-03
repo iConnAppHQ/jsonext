@@ -22,5 +22,8 @@ setup(
     url='http://github.com/mbr/jsonext',
     license='MIT',
     packages=find_packages(exclude=['tests']),
-    install_requires=['phonenumbers', 'times', 'sqlalchemy_utils'],
+    install_requires=['simplejson',
+                      'phonenumbers',
+                      'times',
+                      'sqlalchemy_utils'],
 )

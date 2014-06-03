@@ -8,7 +8,7 @@ All these are ready to use by using :data:`~jsonext.dumps`.
 """
 
 import functools
-import json
+import simplejson as json
 
 from .mixins import JSONDateTimeMixin, JSONIterableMixin, JSONAsDictMixin, \
     JSONStringifyMixin, JSONPhoneNumberMixin, JSONChoiceMixin
