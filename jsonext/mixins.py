@@ -110,7 +110,7 @@ class JSONPhoneNumberMixin(object):
     """
     def default(self, o):
         if isinstance(o, (PhoneNumber, PhoneNumberType)):
-            return o.e164
+            return o.international
         return super(JSONPhoneNumberMixin, self).default(o)
 
 
