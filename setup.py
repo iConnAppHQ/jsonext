@@ -12,7 +12,7 @@ def read(fname):
 
 setup(
     name='jsonext',
-    version='0.5.3',
+    version='0.5.4',
     description='Well-structured helpers to help serializing commonly '
                 'encountered structures to JSON (like datetime, asdict(), '
                 ' etc.',
