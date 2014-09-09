@@ -7,8 +7,12 @@ adding serialization methods for other object types, such as
 All these are ready to use by using :data:`~jsonext.dumps`.
 """
 
-import functools
 import simplejson as json
+
+try:
+    from flask import current_app
+except:
+    pass
 
 from .mixins import JSONDateTimeMixin, JSONIterableMixin, JSONAsDictMixin, \
     JSONStringifyMixin, JSONPhoneNumberMixin, JSONChoiceMixin
@@ -20,4 +24,8 @@ class JSONEncoder(JSONDateTimeMixin, JSONIterableMixin, JSONAsDictMixin,
     pass
 
 
-dumps = functools.partial(json.dumps, cls=JSONEncoder)
+def dumps(*args, **kwargs):
+    kwargs = {'cls': JSONEncoder}
+    if globals().get('current_app') is not None and 'ensure_ascii' not in kwargs:
+        kwargs['ensure_ascii'] = current_app.config['DEBUG']
+    return json.dumps(*args, **kwargs)
