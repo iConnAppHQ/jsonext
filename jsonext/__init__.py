@@ -7,6 +7,7 @@ adding serialization methods for other object types, such as
 All these are ready to use by using :data:`~jsonext.dumps`.
 """
 
+from functools import partial
 import simplejson as json
 
 from .mixins import JSONDateTimeMixin, JSONIterableMixin, JSONAsDictMixin, \
@@ -16,11 +17,9 @@ from .mixins import JSONDateTimeMixin, JSONIterableMixin, JSONAsDictMixin, \
 class JSONEncoder(JSONDateTimeMixin, JSONIterableMixin, JSONAsDictMixin,
                   JSONPhoneNumberMixin, JSONChoiceMixin, JSONStringifyMixin,
                   json.JSONEncoder):
-    pass
-
-
-def dumps(*args, **kwargs):
-    kwargs = {'cls': JSONEncoder}
-    if 'ensure_ascii' not in kwargs:
+    def __init__(self, *args, **kwargs):
         kwargs['ensure_ascii'] = False
-    return json.dumps(*args, **kwargs)
+        super(JSONEncoder, self).__init__(*args, **kwargs)
+
+
+dumps = partial(json.dumps, cls=JSONEncoder)
