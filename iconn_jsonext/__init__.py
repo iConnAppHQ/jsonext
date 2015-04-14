@@ -10,13 +10,12 @@ All these are ready to use by using :data:`~jsonext.dumps`.
 from functools import partial
 import simplejson as json
 
-from .mixins import JSONDateTimeMixin, JSONIterableMixin, JSONAsDictMixin, \
-    JSONStringifyMixin, JSONPhoneNumberMixin, JSONChoiceMixin
+from .mixins import (JSONDateTimeMixin, JSONIterableMixin,
+                     JSONStringifyMixin, JSONMongoBsonMixin)
 
 
-class JSONEncoder(JSONDateTimeMixin, JSONIterableMixin, JSONAsDictMixin,
-                  JSONPhoneNumberMixin, JSONChoiceMixin, JSONStringifyMixin,
-                  json.JSONEncoder):
+class JSONEncoder(JSONDateTimeMixin, JSONIterableMixin,
+                  JSONStringifyMixin, JSONMongoBsonMixin,json.JSONEncoder):
     def __init__(self, *args, **kwargs):
         kwargs['ensure_ascii'] = False
         super(JSONEncoder, self).__init__(*args, **kwargs)

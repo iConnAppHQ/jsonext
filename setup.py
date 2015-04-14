@@ -11,19 +11,18 @@ def read(fname):
 
 
 setup(
-    name='jsonext',
-    version='0.5.5',
+    name='iconn_jsonext',
+    version='1.0',
     description='Well-structured helpers to help serializing commonly '
                 'encountered structures to JSON (like datetime, asdict(), '
                 ' etc.',
     long_description=read('README.rst'),
-    author='Marc Brinkmann',
-    author_email='git@marcbrinkmann.de',
-    url='http://github.com/mbr/jsonext',
+    author='Mike Klimin',
+    author_email='mike@iconnapp.ru',
+    url='http://github.com/iConnAppHQ/iconn-jsonext',
     license='MIT',
     packages=find_packages(exclude=['tests']),
     install_requires=['simplejson',
-                      'phonenumbers',
                       'times',
-                      'sqlalchemy_utils'],
+                      'pymongo'],
 )
