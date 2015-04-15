@@ -19,7 +19,7 @@ setup(
     long_description=read('README.rst'),
     author='Mike Klimin',
     author_email='mike@iconnapp.ru',
-    url='http://github.com/iConnAppHQ/iconn-jsonext',
+    url='http://github.com/iConnAppHQ/jsonext',
     license='MIT',
     packages=find_packages(exclude=['tests']),
     install_requires=['simplejson',
